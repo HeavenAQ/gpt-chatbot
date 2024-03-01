@@ -76,24 +76,27 @@ def handle_message(event):
     """
     Handle incoming text messages and send them to custom GPT-4 model
     """
-    app.logger.info("Processing incoming message")
-    gpt_res = query_gpt(event.message.text, gpt=gpt)
-    app.logger.info(f"GPT Response: {gpt_res}")
-    with ApiClient(config) as api_client:
-        line_bot_api = MessagingApi(api_client)
-        line_bot_api.reply_message_with_http_info(
-            ReplyMessageRequest(
-                replyToken=event.reply_token or "",
-                messages=[
-                    TextMessage(
-                        text=gpt_res,
-                        quickReply=None,
-                        quoteToken=None,
-                    )
-                ],
-                notificationDisabled=False,
+    try:
+        app.logger.info("Processing incoming message")
+        gpt_res = query_gpt(event.message.text, gpt=gpt)
+        app.logger.info(f"GPT Response: {gpt_res}")
+        with ApiClient(config) as api_client:
+            line_bot_api = MessagingApi(api_client)
+            line_bot_api.reply_message_with_http_info(
+                ReplyMessageRequest(
+                    replyToken=event.reply_token or "",
+                    messages=[
+                        TextMessage(
+                            text=gpt_res,
+                            quickReply=None,
+                            quoteToken=None,
+                        )
+                    ],
+                    notificationDisabled=False,
+                )
             )
-        )
+    except Exception as err:
+        app.logger.error("Error processing message", err)
 
 
 if __name__ == "__main__":
