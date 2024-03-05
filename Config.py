@@ -35,7 +35,11 @@ class FirestoreConfig:
     type: str = os.getenv("FIRESTORE_TYPE") or "service_account"
     project_id: str = os.getenv("FIRESTORE_PROJECT_ID") or "badminton-rule-db"
     private_key_id: str = os.getenv("FIRESTORE_PRIVATE_KEY_ID") or ""
-    private_key: str = os.getenv("FIRESTORE_PRIVATE_KEY") or ""
+    private_key: str = (
+        p_key.replace("\\n", "\n")
+        if (p_key := os.getenv("FIRESTORE_PRIVATE_KEY"))
+        else ""
+    )
     client_email: str = os.getenv("FIRESTORE_CLIENT_EMAIL") or ""
     firesotre_client_id: str = os.getenv("FIRESOTRE_CLIENT_ID") or ""
     auth_url: str = os.getenv("FIRESTORE_AUTH_URL") or ""
