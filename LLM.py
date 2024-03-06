@@ -4,7 +4,7 @@ from openai import OpenAI
 from openai.types.beta import Thread
 from openai.types.beta.threads import Run
 
-from Config import OpenAiConfig
+from config import OpenAiConfig
 
 
 class GPT:

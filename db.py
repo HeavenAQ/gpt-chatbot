@@ -1,7 +1,7 @@
 import firebase_admin
 from firebase_admin import firestore
 
-from Config import FirestoreConfig
+from config import FirestoreConfig
 
 
 class FireStore:

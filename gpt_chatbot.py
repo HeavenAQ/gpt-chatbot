@@ -2,10 +2,10 @@ from typing import Any
 
 from flask import Flask
 
-from Chatbot import Linebot
-from Config import GPTChatBotConfig
-from Database import FireStore
-from LLM import GPT
+from chatbot import Linebot
+from config import GPTChatBotConfig
+from db import FireStore
+from llm import GPT
 
 
 class GPTChatbot:

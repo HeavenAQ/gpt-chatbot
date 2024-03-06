@@ -1,5 +1,3 @@
-import os
-
 from firebase_admin import json
 from flask import abort, request
 from linebot.v3.exceptions import InvalidSignatureError
@@ -7,8 +5,8 @@ from linebot.v3.messaging import (ApiClient, MessagingApi, ReplyMessageRequest,
                                   TextMessage)
 from linebot.v3.webhooks import MessageEvent, TextMessageContent
 
-from Config import FirestoreConfig, GPTChatBotConfig, LineConfig, OpenAiConfig
-from GPTChatbot import GPTChatbot
+from config import FirestoreConfig, GPTChatBotConfig, LineConfig, OpenAiConfig
+from gpt_chatbot import GPTChatbot
 
 # basic setup
 config = GPTChatBotConfig(
