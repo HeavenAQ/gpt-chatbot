@@ -36,7 +36,7 @@ class FirestoreConfig:
     project_id: str = os.getenv("FIRESTORE_PROJECT_ID") or "badminton-rule-db"
     private_key_id: str = os.getenv("FIRESTORE_PRIVATE_KEY_ID") or ""
     private_key: str = (
-        p_key.replace("\\n", "\n")
+        p_key.replace("\\n", "\n").replace("'", "")
         if (p_key := os.getenv("FIRESTORE_PRIVATE_KEY"))
         else ""
     )

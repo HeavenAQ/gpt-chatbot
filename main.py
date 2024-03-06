@@ -79,9 +79,6 @@ def handle_message(event):
         app.server.logger.error("Error processing message", err)
 
 
-if __name__ == "__main__":
-    app.server.run(
-        debug=True,
-        host=os.getenv("HOST") or "127.0.0.1",
-        port=int(os.getenv("PORT") or 5000),
-    )
+def create_app():
+    app.server.logger.info("Creating app")
+    return app.server
