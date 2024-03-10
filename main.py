@@ -16,6 +16,9 @@ config = GPTChatBotConfig(
 )
 app = GPTChatbot(config)
 
+a = 1
+b = 3
+
 
 # flask routes
 @app.server.route("/", methods=["POST"])
@@ -71,7 +74,13 @@ def handle_message(event):
                 data = json.loads(res.raw_data)
                 msg_id = data["sentMessages"][0]["id"]
                 app.server.logger.info(f"Message sent with id: {msg_id}")
-                app.db.update_user(event.source.user_id, {msg_id: gpt_res})
+                app.db.update_user(
+                    event.source.user_id,
+                    {
+                        event.message.id: event.message.text,
+                        msg_id: gpt_res,
+                    },
+                )
 
     except Exception as err:
         app.server.logger.error("Error processing message", err)
