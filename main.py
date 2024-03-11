@@ -24,7 +24,10 @@ def webhook_handler():
     Handle incoming messages
     """
     # verify signature
-    signature = request.headers["X-Line-Signature"]
+    signature = request.headers.get("X-Line-Signature")
+    if not signature:
+        return "Signature not found", 400
+
     body = request.get_data(as_text=True)
 
     # handle webhook request
