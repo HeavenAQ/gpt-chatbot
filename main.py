@@ -1,4 +1,3 @@
-from firebase_admin import json
 from flask import abort, request
 from linebot.v3.exceptions import InvalidSignatureError
 from linebot.v3.messaging import (ApiClient, MessagingApi, ReplyMessageRequest,

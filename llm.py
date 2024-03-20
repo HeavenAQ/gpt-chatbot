@@ -20,6 +20,8 @@ class GPT:
             run = self.gpt.beta.threads.runs.retrieve(
                 thread_id=thread.id, run_id=run.id
             )
+            if run.status == "failed":
+                return "Query failed. Please try again."
             time.sleep(1)
         else:
             message_response = self.gpt.beta.threads.messages.list(thread_id=thread.id)
