@@ -5,8 +5,13 @@ from dotenv import load_dotenv
 from flask import Flask, abort, request
 from linebot.v3 import WebhookHandler
 from linebot.v3.exceptions import InvalidSignatureError
-from linebot.v3.messaging import (ApiClient, Configuration, MessagingApi,
-                                  ReplyMessageRequest, TextMessage)
+from linebot.v3.messaging import (
+    ApiClient,
+    Configuration,
+    MessagingApi,
+    ReplyMessageRequest,
+    TextMessage,
+)
 from linebot.v3.webhooks import MessageEvent, TextMessageContent
 from openai import OpenAI
 
@@ -44,6 +49,9 @@ def query_gpt(message: str, gpt: OpenAI) -> str:
     while run.status != "completed":
         run = gpt.beta.threads.runs.retrieve(thread_id=thread.id, run_id=run.id)
         app.logger.info(f"Run status: {run.status}")
+
+        if run.status == "failed":
+            return "Sorry, I'm unable to process your request at the moment. Please try again!"
         time.sleep(1)
     else:
         message_response = gpt.beta.threads.messages.list(thread_id=thread.id)
