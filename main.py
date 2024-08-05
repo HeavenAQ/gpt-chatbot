@@ -30,7 +30,7 @@ elif not (OPENAI_ASSISTANT_ID := os.getenv("OPENAI_ASSISTANT_ID")):
 
 # app setup
 app = Flask(__name__)
-gpt = OpenAI(api_key=OPENAI_API_KEY)
+gpt = OpenAI(api_key=OPENAI_API_KEY, default_headers={"OpenAI-Beta": "assistants=v2"})
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
 config = Configuration(access_token=LINE_ACCESS_TOKEN)
 
